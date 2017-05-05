@@ -992,29 +992,34 @@ def build_OFS_coils(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coi
 
 start_time = time.time()
 rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
-#build_OFS_coils("NSE_v4",20,0.001,0.0014,0.05,1.4,0.01,2,0.)
-z0=0.
-curr_NSE_1_old=5.
-inner_rad_NSE_old=0.1/2.
-d_rad_NSE=0.001
-N_turns_0=724
-N_turns_1=594
-N_turns_2=485
-N_turns_3=391
-N_turns_4=290
-length_0=1.
-length_1=0.82
-length_2=0.67
-length_3=0.54
-length_4=0.4
-NSE_1_0_old=coil(inner_rad_NSE_old,length_0/N_turns_0,N_turns_0,1,curr_NSE_1_old,z0)
-NSE_1_1_old=coil(inner_rad_NSE_old+d_rad_NSE,length_1/N_turns_1,N_turns_1,1,curr_NSE_1_old,z0)
-NSE_1_2_old=coil(inner_rad_NSE_old+2*d_rad_NSE,length_2/N_turns_2,N_turns_2,1,curr_NSE_1_old,z0)
-NSE_1_3_old=coil(inner_rad_NSE_old+3*d_rad_NSE,length_3/N_turns_3,N_turns_3,1,curr_NSE_1_old,z0)
-NSE_1_4_old=coil(inner_rad_NSE_old+4*d_rad_NSE,length_4/N_turns_4,N_turns_4,1,curr_NSE_1_old,z0)
+Dwire=0.0014
+current_NSE_v4=5.
 
-NSE_arm1_old=coilarray([NSE_1_0_old,NSE_1_1_old,NSE_1_2_old,NSE_1_3_old,NSE_1_4_old])
+#build_OFS_coils("NSE_v4",20,0.001,0.0014,0.05,1.4,0.01,2,0.)
+NSE_v4_1=coil(0.05,Dwire,1000,1,current_NSE_v4,0.)
+NSE_v4_2=coil(0.0524,Dwire,870,1,current_NSE_v4,0.)
+NSE_v4_3=coil(0.0548,Dwire,815,1,current_NSE_v4,0.)
+NSE_v4_4=coil(0.0572,Dwire,771,1,current_NSE_v4,0.)
+NSE_v4_5=coil(0.0596,Dwire,734,1,current_NSE_v4,0.)
+NSE_v4_6=coil(0.062,Dwire,700,1,current_NSE_v4,0.)
+NSE_v4_7=coil(0.0644,Dwire,668,1,current_NSE_v4,0.)
+NSE_v4_8=coil(0.0668,Dwire,639,1,current_NSE_v4,0.)
+NSE_v4_9=coil(0.0692,Dwire,610,1,current_NSE_v4,0.)
+NSE_v4_10=coil(0.0716,Dwire,583,1,current_NSE_v4,0.)
+NSE_v4_11=coil(0.074,Dwire,556,1,current_NSE_v4,0.)
+NSE_v4_12=coil(0.0764,Dwire,529,1,current_NSE_v4,0.)
+NSE_v4_13=coil(0.0788,Dwire,503,1,current_NSE_v4,0.)
+NSE_v4_14=coil(0.0812,Dwire,476,1,current_NSE_v4,0.)
+NSE_v4_15=coil(0.0836,Dwire,450,1,current_NSE_v4,0.)
+NSE_v4_16=coil(0.0860,Dwire,423,1,current_NSE_v4,0.)
+NSE_v4_17=coil(0.0884,Dwire,395,1,current_NSE_v4,0.)
+NSE_v4_18=coil(0.0908,Dwire,367,1,current_NSE_v4,0.)
+NSE_v4_19=coil(0.0932,Dwire,338,1,current_NSE_v4,0.)
+NSE_v4_20=coil(0.0956,Dwire,306,1,current_NSE_v4,0.)
+NSE_v4_21=coil(0.098,Dwire,273,1,current_NSE_v4,0.)
+NSE_v4=coilarray(NSE_v4_1,NSE_v4_2,NSE_v4_3,NSE_v4_4,NSE_v4_5,NSE_v4_6,NSE_v4_7,NSE_v4_8,NSE_v4_9,NSE_v4_10,NSE_v4_11,NSE_v4_12,NSE_v4_13,NSE_v4_14,NSE_v4_15,NSE_v4_16,NSE_v4_17,NSE_v4_18,NSE_v4_19,NSE_v4_21,NSE_v4_21)
 for rad in rads:
-    NSE_arm1_old.B_fixed_r_to_csv(rad,-0.6,0.6,0.05,"NSE_arm1_old")
+    NSE_v4.B_fixed_r_to_csv(rad,-0.6,0.6,0.05,"NSE_v4")
+    
 #NSE_v3.B_fixed_r_read_plot_csv("NSE_v3_r=0.0m","Yes",1.)
 print (time.time()-start_time)/60., "minutes,calculation time"
