@@ -1017,7 +1017,7 @@ NSE_v4_18=coil(0.0908,Dwire,367,1,current_NSE_v4,0.)
 NSE_v4_19=coil(0.0932,Dwire,338,1,current_NSE_v4,0.)
 NSE_v4_20=coil(0.0956,Dwire,306,1,current_NSE_v4,0.)
 NSE_v4_21=coil(0.098,Dwire,273,1,current_NSE_v4,0.)
-NSE_v4=coilarray(NSE_v4_1,NSE_v4_2,NSE_v4_3,NSE_v4_4,NSE_v4_5,NSE_v4_6,NSE_v4_7,NSE_v4_8,NSE_v4_9,NSE_v4_10,NSE_v4_11,NSE_v4_12,NSE_v4_13,NSE_v4_14,NSE_v4_15,NSE_v4_16,NSE_v4_17,NSE_v4_18,NSE_v4_19,NSE_v4_21,NSE_v4_21)
+NSE_v4=coilarray([NSE_v4_1,NSE_v4_2,NSE_v4_3,NSE_v4_4,NSE_v4_5,NSE_v4_6,NSE_v4_7,NSE_v4_8,NSE_v4_9,NSE_v4_10,NSE_v4_11,NSE_v4_12,NSE_v4_13,NSE_v4_14,NSE_v4_15,NSE_v4_16,NSE_v4_17,NSE_v4_18,NSE_v4_19,NSE_v4_21,NSE_v4_21])
 for rad in rads:
     NSE_v4.B_fixed_r_to_csv(rad,-0.6,0.6,0.05,"NSE_v4")
     
