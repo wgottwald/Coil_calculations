@@ -927,7 +927,7 @@ def Br_fixed_z_read_plot(coilname,zvalues):
     
     #now for building OFS coils
 
-def build_OFS_coils(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist,current,z0):
+def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist):
     """constructs a coilsetup, whose geometric form ist like the OFS, with an arbitrary amplitude A, which 
     corrresponds to how high the setup should be biult, when constructed
     N_coils is the number of coils 
@@ -939,6 +939,7 @@ def build_OFS_coils(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coi
     dist corresponds to how much difference there should be between the hypothetical maximum of the
     cos^2 shape of the coilarray and the last coil constructed (usually some centimeters)
     we don't want the coils to be too short, because then the radial field gets more inhomogenuos
+    function returns dwire
     """
     radius=lambda n: R_inner_coil+n*(d_wire+d_insulator)
     #the nth coil gets radius(n) as its radius
@@ -950,76 +951,60 @@ def build_OFS_coils(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coi
     r=[]
     t=[]
     cl=[]
+    
     for n in np.arange(0,N_coils+1,1):
         l.append(x_coordinate(n))
         r.append(radius(n))
-        t.append(2*(x_coordinate(n)/d_wire))
         cl.append(2*x_coordinate(n))
+        
+    for n in np.arange(0,N_coils+1,1):
+        t.append(int(round(cl[n]/d_wire,0)))
+
+                 
+    #take into account here, that we round the number of turns to the next float with .0, the conversion to integers happens, when
+    #you call build_OFS_coilarray!!
+    #had some problems with computing this...
     table={'x_coordinate':l,'radius':r,'turns':t,"coillength":cl}
     data=pd.DataFrame(table,columns=['radius','x_coordinate','turns','coillength'],dtype=float)
+
     data.to_csv("coilparameters_for_"+str(coilname)+".csv")
+    #now plot the result
     ax=np.arange(-L_inner_coil/2,L_inner_coil/2,0.001)
     plt.plot(ax,OFS(ax))
     plt.scatter(l,r)
 
-
-    #rounding the calculated turns to integers
-    float_turns=[]
-    for i in np.arange(len(data['turns'])):
-        float_turns.append(data['turns'][i])
-
-    rounded_turns=[]
-    for i in float_turns:
-        rounded_turns.append(int(round(i,0)))
-    float_radia=[]
-    #rounding the calculated radia to mm
-    for i in np.arange(len(data['radius'])):
-        float_radia.append(round(data['radius'][i],4))
-    #constructing coilarray from those coils
-    total_turns=np.sum(rounded_turns)
-    print rounded_turns, "turns per coil" 
-    print float_radia, "radia of coils"
-    print total_turns, "number of total turns"
     plt.show()
+    print data
+    
+
+
+def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
+    """
+    enter coilname as str
+    reads csv file from build_OFS_coils_csv
+    makes OFS coilarray from it
+    calculates field and makes csv file from it which is then saved, just like in B_fixed_r_to_csv
+    """
+    N_layers=1
+    csvname="coilparameters_for_"+coilname+".csv"
+    data=pd.read_csv(csvname)
+    built_coilarray=[]
+
+    for i in np.arange(len(data['radius'])):
+        built_coilarray.append(coil(data['radius'][i],D_wire,int(data['turns'][i]),N_layers,current,z0))
+    for rad in rads:
+        coilarray(built_coilarray).B_fixed_r_to_csv(rad,zstart,zlimit,zsteps,coilname)
 
 
 
     
-    #ideas: make for loop, that reads how many coils were produced, extracts N_coils from that
-    #make N_coils and then put them into a coilarray,which can be used then
-
-
 
 start_time = time.time()
 rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
-Dwire=0.0014
-current_NSE_v4=5.
+ 
+build_OFS_coils_csv("NSE_v5",15,0.001,0.0014,0.05,1.4,0.01)
+build_OFS_coilarray("NSE_v5",5.,0.,0.0014,rads,-0.6,0.6,0.05)
 
-#build_OFS_coils("NSE_v4",20,0.001,0.0014,0.05,1.4,0.01,2,0.)
-NSE_v4_1=coil(0.05,Dwire,1000,1,current_NSE_v4,0.)
-NSE_v4_2=coil(0.0524,Dwire,870,1,current_NSE_v4,0.)
-NSE_v4_3=coil(0.0548,Dwire,815,1,current_NSE_v4,0.)
-NSE_v4_4=coil(0.0572,Dwire,771,1,current_NSE_v4,0.)
-NSE_v4_5=coil(0.0596,Dwire,734,1,current_NSE_v4,0.)
-NSE_v4_6=coil(0.062,Dwire,700,1,current_NSE_v4,0.)
-NSE_v4_7=coil(0.0644,Dwire,668,1,current_NSE_v4,0.)
-NSE_v4_8=coil(0.0668,Dwire,639,1,current_NSE_v4,0.)
-NSE_v4_9=coil(0.0692,Dwire,610,1,current_NSE_v4,0.)
-NSE_v4_10=coil(0.0716,Dwire,583,1,current_NSE_v4,0.)
-NSE_v4_11=coil(0.074,Dwire,556,1,current_NSE_v4,0.)
-NSE_v4_12=coil(0.0764,Dwire,529,1,current_NSE_v4,0.)
-NSE_v4_13=coil(0.0788,Dwire,503,1,current_NSE_v4,0.)
-NSE_v4_14=coil(0.0812,Dwire,476,1,current_NSE_v4,0.)
-NSE_v4_15=coil(0.0836,Dwire,450,1,current_NSE_v4,0.)
-NSE_v4_16=coil(0.0860,Dwire,423,1,current_NSE_v4,0.)
-NSE_v4_17=coil(0.0884,Dwire,395,1,current_NSE_v4,0.)
-NSE_v4_18=coil(0.0908,Dwire,367,1,current_NSE_v4,0.)
-NSE_v4_19=coil(0.0932,Dwire,338,1,current_NSE_v4,0.)
-NSE_v4_20=coil(0.0956,Dwire,306,1,current_NSE_v4,0.)
-NSE_v4_21=coil(0.098,Dwire,273,1,current_NSE_v4,0.)
-NSE_v4=coilarray([NSE_v4_1,NSE_v4_2,NSE_v4_3,NSE_v4_4,NSE_v4_5,NSE_v4_6,NSE_v4_7,NSE_v4_8,NSE_v4_9,NSE_v4_10,NSE_v4_11,NSE_v4_12,NSE_v4_13,NSE_v4_14,NSE_v4_15,NSE_v4_16,NSE_v4_17,NSE_v4_18,NSE_v4_19,NSE_v4_21,NSE_v4_21])
-for rad in rads:
-    NSE_v4.B_fixed_r_to_csv(rad,-0.6,0.6,0.05,"NSE_v4")
-    
 #NSE_v3.B_fixed_r_read_plot_csv("NSE_v3_r=0.0m","Yes",1.)
-print (time.time()-start_time)/60., "minutes,calculation time"
+calc_time=open("calculation_time.txt",'w')
+calc_time.write(str((time.time()-start_time)/60.)+" minutes")
