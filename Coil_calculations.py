@@ -968,13 +968,8 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
     data=pd.DataFrame(table,columns=['radius','x_coordinate','turns','coillength'],dtype=float)
 
     data.to_csv("coilparameters_for_"+str(coilname)+".csv")
-    #now plot the result
-    ax=np.arange(-L_inner_coil/2,L_inner_coil/2,0.001)
-    plt.plot(ax,OFS(ax))
-    plt.scatter(l,r)
 
-    plt.show()
-    print data
+
     
 
 
