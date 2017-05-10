@@ -997,9 +997,10 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
 start_time = time.time()
 rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
  
-build_OFS_coils_csv("NSE_v5",15,0.001,0.0014,0.05,1.4,0.01)
-build_OFS_coilarray("NSE_v5",5.,0.,0.0014,rads,-0.6,0.6,0.05)
-
+#build_OFS_coils_csv("NSE_v5",15,0.001,0.0014,0.05,1.4,0.01)
+#build_OFS_coilarray("NSE_v5",5.,0.,0.0014,rads,-0.6,0.6,0.05)
+build_OFS_coils_csv("NSE_v6",10,0.001,0.0014,0.05,1.4,0.01)
+build_OFS_coilarray("NSE_v6",5.,0.,0.0014,rads,-0.6,0.6,0.05)
 #NSE_v3.B_fixed_r_read_plot_csv("NSE_v3_r=0.0m","Yes",1.)
-calc_time=open("calculation_time.txt",'w')
+calc_time=open("calculation_time_NSE_v6.txt",'w')
 calc_time.write(str((time.time()-start_time)/60.)+" minutes")
