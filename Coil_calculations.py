@@ -923,7 +923,29 @@ def Br_fixed_z_read_plot(coilname,zvalues):
     plt.savefig("Br_fixed_z_"+coilname+"_z="+str(zvalues)+".eps")
 
     
-    
+def send_email(user, pwd, recipient, subject, body):
+    import smtplib
+
+    gmail_user = user
+    gmail_pwd = pwd
+    FROM = user
+    TO = recipient if type(recipient) is list else [recipient]
+    SUBJECT = subject
+    TEXT = body
+
+    # Prepare actual message
+    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.ehlo()
+        server.starttls()
+        server.login(gmail_user, gmail_pwd)
+        server.sendmail(FROM, TO, message)
+        server.close()
+        print 'successfully sent the mail'
+    except:
+        print "failed to send mail" 
     
     #now for building OFS coils
 
@@ -999,8 +1021,17 @@ rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
  
 #build_OFS_coils_csv("NSE_v5",15,0.001,0.0014,0.05,1.4,0.01)
 #build_OFS_coilarray("NSE_v5",5.,0.,0.0014,rads,-0.6,0.6,0.05)
-build_OFS_coils_csv("NSE_v6",10,0.001,0.0014,0.05,1.4,0.01)
-build_OFS_coilarray("NSE_v6",5.,0.,0.0014,rads,-0.6,0.6,0.05)
+build_OFS_coils_csv("NSE_v7",15,0.001,0.0014,0.1,1.4,0.01)
+build_OFS_coilarray("NSE_v7",5.,0.,0.0014,rads,-0.6,0.6,0.05)
 #NSE_v3.B_fixed_r_read_plot_csv("NSE_v3_r=0.0m","Yes",1.)
-calc_time=open("calculation_time_NSE_v6.txt",'w')
-calc_time.write(str((time.time()-start_time)/60.)+" minutes")
+end_time=time.time()
+total_time=(end_time-start_time)/60.
+calc_time=open("calculation_time_NSE_v7.txt",'w')
+calc_time.write(str((end_time-start_time)/60.)+" minutes")
+send_email("coilcomputations","743928HfL","wgottwald@gmx.at","Computation is finished","It's over, it's finally over, also:"+str(total_time)+"minutes calculation time")
+
+       
+
+
+
+
