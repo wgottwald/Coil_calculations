@@ -971,11 +971,11 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
 
     data.to_csv("coilparameters_for_"+str(coilname)+".csv")
     #now plot the result
-    ax=np.arange(-L_inner_coil/2,L_inner_coil/2,0.001)
-    plt.xlabel("z coordinate alongside coil [m]")
-    plt.ylabel("OFS field shape,with coils as hlines")
-    plt.plot(ax,OFS(ax))
-    plt.scatter(l,r)
+    #ax=np.arange(-L_inner_coil/2,L_inner_coil/2,0.001)
+    #plt.xlabel("z coordinate alongside coil [m]")
+    #plt.ylabel("OFS field shape,with coils as hlines")
+    #plt.plot(ax,OFS(ax))
+    #plt.scatter(l,r)
     #for i in np.arange(0,N_coils+1,1):
     #    plt.hlines(OFS(l[i]),-l[i],l[i])
         
