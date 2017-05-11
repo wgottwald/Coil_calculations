@@ -976,10 +976,10 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
     plt.ylabel("OFS field shape,with coils as hlines")
     plt.plot(ax,OFS(ax))
     plt.scatter(l,r)
-    for i in np.arange(0,N_coils+1,1):
-        plt.hlines(OFS(l[i]),-l[i],l[i])
+    #for i in np.arange(0,N_coils+1,1):
+    #    plt.hlines(OFS(l[i]),-l[i],l[i])
         
-    plt.savefig(str(coilname)+"_coil_distribution.eps")
+    #plt.savefig(str(coilname)+"_coil_distribution.eps")
     #print data
     #want to save the starting parameters as a txt file, so that this info doesnt get lost in the process
     starting_parameters=open("starting_parameters_for_"+str(coilname)+".txt","w")
