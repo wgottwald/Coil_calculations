@@ -923,29 +923,7 @@ def Br_fixed_z_read_plot(coilname,zvalues):
     plt.savefig("Br_fixed_z_"+coilname+"_z="+str(zvalues)+".eps")
 
     
-def send_email(user, pwd, recipient, subject, body):
-    import smtplib
 
-    gmail_user = user
-    gmail_pwd = pwd
-    FROM = user
-    TO = recipient if type(recipient) is list else [recipient]
-    SUBJECT = subject
-    TEXT = body
-
-    # Prepare actual message
-    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
-    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
-    try:
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.ehlo()
-        server.starttls()
-        server.login(gmail_user, gmail_pwd)
-        server.sendmail(FROM, TO, message)
-        server.close()
-        print 'successfully sent the mail'
-    except:
-        print "failed to send mail" 
     
     #now for building OFS coils
 
@@ -962,6 +940,7 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
     cos^2 shape of the coilarray and the last coil constructed (usually some centimeters)
     we don't want the coils to be too short, because then the radial field gets more inhomogenuos
     function returns dwire
+    saves the input as a txt file
     """
     radius=lambda n: R_inner_coil+n*(d_wire+d_insulator)
     #the nth coil gets radius(n) as its radius
@@ -975,9 +954,10 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
     cl=[]
     
     for n in np.arange(0,N_coils+1,1):
-        l.append(x_coordinate(n))
+        l.append(round(x_coordinate(n),4))
         r.append(radius(n))
-        cl.append(2*x_coordinate(n))
+        cl.append(round(2*x_coordinate(n),4))
+        #rounding the length to millimeters
         
     for n in np.arange(0,N_coils+1,1):
         t.append(int(round(cl[n]/d_wire,0)))
@@ -986,14 +966,26 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
     #take into account here, that we round the number of turns to the next float with .0, the conversion to integers happens, when
     #you call build_OFS_coilarray!!
     #had some problems with computing this...
-    table={'x_coordinate':l,'radius':r,'turns':t,"coillength":cl}
-    data=pd.DataFrame(table,columns=['radius','x_coordinate','turns','coillength'],dtype=float)
+    table={'radius':r,'turns':t,"coillength":cl}
+    data=pd.DataFrame(table,columns=['radius','turns','coillength'],dtype=float)
 
     data.to_csv("coilparameters_for_"+str(coilname)+".csv")
-
-
-    
-
+    #now plot the result
+    ax=np.arange(-L_inner_coil/2,L_inner_coil/2,0.001)
+    plt.xlabel("z coordinate alongside coil [m]")
+    plt.ylabel("OFS field shape,with coils as hlines")
+    plt.plot(ax,OFS(ax))
+    plt.scatter(l,r)
+    for i in np.arange(0,N_coils+1,1):
+        plt.hlines(OFS(l[i]),-l[i],l[i])
+        
+    plt.savefig(str(coilname)+"_coil_distribution.eps")
+    #print data
+    #want to save the starting parameters as a txt file, so that this info doesnt get lost in the process
+    starting_parameters=open("starting_parameters_for_"+str(coilname)+".txt","w")
+    starting_parameters.write("coilname="+str(coilname)+" ------ Number of coils="+str(N_coils)+" ------ Thickness of insulator[m]="+str(d_insulator)
+                             +" ------ diameter of wire[m]="+str(d_wire)+" ------ radius inner coil[m]= "+str(R_inner_coil)+" ------ length inner coil[m]="
+                             +str(L_inner_coil)+" ------ distance between top winding of Nth coil and max of hypothetical cos^2 shape[m]="+str(dist))
 
 def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
     """
@@ -1001,16 +993,24 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
     reads csv file from build_OFS_coils_csv
     makes OFS coilarray from it
     calculates field and makes csv file from it which is then saved, just like in B_fixed_r_to_csv
+    saves the input as a txt file
     """
     N_layers=1
     csvname="coilparameters_for_"+coilname+".csv"
+    #saving the field_calc_parameters as a textfile, so that the info is not lost
+    field_params=open("field_calc_parameters_for_"+str(coilname)+".txt","w")
+    field_params.write("current[A]="+str(current)+" ------ z0 [m]="+str(z0)+" ------ radia where calculated [m]="+
+                         str(rads)+" ------ z boundaries where field is calculated [m]="+str(zstart)+","+str(zlimit)+" ------ z stepping range[m]="+str(zsteps))
+
+    
     data=pd.read_csv(csvname)
     built_coilarray=[]
-
+    
     for i in np.arange(len(data['radius'])):
         built_coilarray.append(coil(data['radius'][i],D_wire,int(data['turns'][i]),N_layers,current,z0))
     for rad in rads:
         coilarray(built_coilarray).B_fixed_r_to_csv(rad,zstart,zlimit,zsteps,coilname)
+        
 
 
 
@@ -1028,7 +1028,7 @@ end_time=time.time()
 total_time=(end_time-start_time)/60.
 calc_time=open("calculation_time_NSE_v7.txt",'w')
 calc_time.write(str((end_time-start_time)/60.)+" minutes")
-send_email("coilcomputations","743928HfL","wgottwald@gmx.at","Computation is finished","It's over, it's finally over, also:"+str(total_time)+"minutes calculation time")
+
 
        
 
