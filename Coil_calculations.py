@@ -1021,12 +1021,12 @@ rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
  
 #build_OFS_coils_csv("NSE_v5",15,0.001,0.0014,0.05,1.4,0.01)
 #build_OFS_coilarray("NSE_v5",5.,0.,0.0014,rads,-0.6,0.6,0.05)
-build_OFS_coils_csv("NSE_v7",15,0.001,0.0014,0.1,1.4,0.01)
-build_OFS_coilarray("NSE_v7",5.,0.,0.0014,rads,-0.6,0.6,0.05)
+build_OFS_coils_csv("NSE_v8",10,0.001,0.0014,0.1,1.4,0.01)
+build_OFS_coilarray("NSE_v8",1.,0.,0.0014,rads,-0.6,0.6,0.05)
 #NSE_v3.B_fixed_r_read_plot_csv("NSE_v3_r=0.0m","Yes",1.)
 end_time=time.time()
 total_time=(end_time-start_time)/60.
-calc_time=open("calculation_time_NSE_v7.txt",'w')
+calc_time=open("calculation_time_NSE_v8.txt",'w')
 calc_time.write(str((end_time-start_time)/60.)+" minutes")
 
 
