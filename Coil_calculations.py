@@ -984,8 +984,8 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
     #want to save the starting parameters as a txt file, so that this info doesnt get lost in the process
     #starting_parameters=open("starting_parameters_for_"+str(coilname)+".txt","w")
     #starting_parameters.write("coilname="+str(coilname)+" ------ Number of coils="+str(N_coils)+" ------ Thickness of insulator[m]="+str(d_insulator)
-                             +" ------ diameter of wire[m]="+str(d_wire)+" ------ radius inner coil[m]= "+str(R_inner_coil)+" ------ length inner coil[m]="
-                             +str(L_inner_coil)+" ------ distance between top winding of Nth coil and max of hypothetical cos^2 shape[m]="+str(dist))
+                             #+" ------ diameter of wire[m]="+str(d_wire)+" ------ radius inner coil[m]= "+str(R_inner_coil)+" ------ length inner coil[m]="
+                             #+str(L_inner_coil)+" ------ distance between top winding of Nth coil and max of hypothetical cos^2 shape[m]="+str(dist))
 
 def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
     """
