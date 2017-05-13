@@ -1000,7 +1000,7 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
     #saving the field_calc_parameters as a textfile, so that the info is not lost
     #field_params=open("field_calc_parameters_for_"+str(coilname)+".txt","w")
     #field_params.write("current[A]="+str(current)+" ------ z0 [m]="+str(z0)+" ------ radia where calculated [m]="+
-                         str(rads)+" ------ z boundaries where field is calculated [m]="+str(zstart)+","+str(zlimit)+" ------ z stepping range[m]="+str(zsteps))
+                         #str(rads)+" ------ z boundaries where field is calculated [m]="+str(zstart)+","+str(zlimit)+" ------ z stepping range[m]="+str(zsteps))
 
     
     data=pd.read_csv(csvname)
