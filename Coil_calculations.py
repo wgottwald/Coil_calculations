@@ -1056,7 +1056,7 @@ build_OFS_coilarray("NSE_v22",2.,0.,0.0014,rads,-0.8,0.,0.05)
 end_time2=time.time()
 calc_time2=(end_time2-start_time2)/60.
 calctime2=open("calculation_time_NSE_v22.txt","w")
-calctime2.write(str(calc_time2)+"-------minutes ,calculation time)
+calctime2.write(str(calc_time2)+"-------minutes ,calculation time")
 
 start_time3=time.time()
 build_OFS_coils_csv("NSE_v23",11,0.001,0.0014,0.05,1.4,0.01)
@@ -1064,7 +1064,7 @@ build_OFS_coilarray("NSE_v23",2.,0.,0.0014,rads,-0.8,0.,0.05)
 end_time3=time.time()
 calc_time3=(end_time3-start_time3)/60.
 calctime3=open("calculation_time_NSE_v23.txt","w")
-calctime3.write(str(calc_time3)+"-------minutes ,calculation time)
+calctime3.write(str(calc_time3)+"-------minutes ,calculation time")
 
 start_time4=time.time()
 build_OFS_coils_csv("NSE_v24",14,0.001,0.0014,0.05,1.4,0.01)
@@ -1072,7 +1072,7 @@ build_OFS_coilarray("NSE_v24",2.,0.,0.0014,rads,-0.8,0.,0.05)
 end_time4=time.time()
 calc_time4=(end_time4-start_time4)/60.
 calctime4=open("calculation_time_NSE_v24.txt","w")
-calctime4.write(str(calc_time4)+"-------minutes ,calculation time)
+calctime4.write(str(calc_time4)+"-------minutes ,calculation time")
 
 
 start_time5=time.time()
@@ -1082,4 +1082,4 @@ build_OFS_coilarray("NSE_v25",2.,0.,0.0014,rads,-0.8,0.,0.05)
 end_time5=time.time()
 calc_time5=(end_time5-start_time5)/60.
 calctime5=open("calculation_time_NSE_v25.txt","w")
-calctime5.write(str(calc_time5)+"-------minutes ,calculation time)
+calctime5.write(str(calc_time5)+"-------minutes ,calculation time")
