@@ -1018,11 +1018,12 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
 
 
 rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
+rads_2=[0.02]
 start_time=time.time()
 
 
 build_OFS_coils_csv("NSE_v16",12,0.001,0.0014,0.05,1.4,0.01)
-build_OFS_coilarray("NSE_v16",2.,0.,0.0014,rads,-0.8,0.,0.05)
+build_OFS_coilarray("NSE_v16",2.,0.,0.0014,rads_2,-0.8,0.,0.05)
 
 build_OFS_coils_csv("NSE_v17",8,0.001,0.0014,0.05,1.4,0.01)
 build_OFS_coilarray("NSE_v17",2.,0.,0.0014,rads,-0.8,0.,0.05)
@@ -1030,6 +1031,11 @@ build_OFS_coilarray("NSE_v17",2.,0.,0.0014,rads,-0.8,0.,0.05)
 build_OFS_coils_csv("NSE_v18",5,0.001,0.0014,0.05,1.4,0.01)
 build_OFS_coilarray("NSE_v18",2.,0.,0.0014,rads,-0.8,0.,0.05)
 
+build_OFS_coils_csv("NSE_v19",14,0.001,0.0014,0.05,1.4,0.01)
+build_OFS_coilarray("NSE_v19",2.,0.,0.0014,rads,-0.8,0.,0.05)
+
+build_OFS_coils_csv("NSE_v20",9,0.001,0.0014,0.05,1.4,0.01)
+build_OFS_coilarray("NSE_v20",2.,0.,0.0014,rads,-0.8,0.,0.05)
 
 
 end_time=time.time()
