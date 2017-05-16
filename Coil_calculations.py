@@ -982,8 +982,8 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
     #plt.savefig(str(coilname)+"_coil_distribution.eps")
     #print data
     #want to save the starting parameters as a txt file, so that this info doesnt get lost in the process
-    #starting_parameters=open("starting_parameters_for_"+str(coilname)+".txt","w")
-    #starting_parameters.write("coilname="+str(coilname)+" ------ Number of coils="+str(N_coils)+" ------ Thickness of insulator[m]="+str(d_insulator)
+    starting_parameters=open("starting_parameters_for_"+str(coilname)+".txt","w")
+    starting_parameters.write("coilname="+str(coilname)+" ------ Number of coils="+str(N_coils)+" ------ Thickness of insulator[m]="+str(d_insulator)
                              #+" ------ diameter of wire[m]="+str(d_wire)+" ------ radius inner coil[m]= "+str(R_inner_coil)+" ------ length inner coil[m]="
                              #+str(L_inner_coil)+" ------ distance between top winding of Nth coil and max of hypothetical cos^2 shape[m]="+str(dist))
 
@@ -998,8 +998,8 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
     N_layers=1
     csvname="coilparameters_for_"+coilname+".csv"
     #saving the field_calc_parameters as a textfile, so that the info is not lost
-    #field_params=open("field_calc_parameters_for_"+str(coilname)+".txt","w")
-    #field_params.write("current[A]="+str(current)+" ------ z0 [m]="+str(z0)+" ------ radia where calculated [m]="+
+    field_params=open("field_calc_parameters_for_"+str(coilname)+".txt","w")
+    field_params.write("current[A]="+str(current)+" ------ z0 [m]="+str(z0)+" ------ radia where calculated [m]="+
                          #str(rads)+" ------ z boundaries where field is calculated [m]="+str(zstart)+","+str(zlimit)+" ------ z stepping range[m]="+str(zsteps))
 
     
@@ -1020,40 +1020,20 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
 rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 start_time=time.time()
 
-build_OFS_coils_csv("new_NSE_v6",10,0.001,0.0014,0.05,1.4,0.01)
-build_OFS_coilarray("new_NSE_v6",5.,0.,0.0014,rads,-0.8,-0.65,0.05)
 
-build_OFS_coils_csv("new_NSE_v7",15,0.001,0.0014,0.1,1.4,0.01)
-build_OFS_coilarray("new_NSE_v7",5.,0.,0.0014,rads,-0.8,-0.65,0.05)
+build_OFS_coils_csv("NSE_v16",12,0.001,0.0014,0.05,1.4,0.01)
+build_OFS_coilarray("NSE_v16",2.,0.,0.0014,rads,-0.8,0.,0.05)
 
-build_OFS_coils_csv("new_NSE_v8",10,0.001,0.0014,0.1,1.4,0.01)
-build_OFS_coilarray("new_NSE_v8",1.,0.,0.0014,rads,-0.8,-0.65,0.05)
+build_OFS_coils_csv("NSE_v17",8,0.001,0.0014,0.05,1.4,0.01)
+build_OFS_coilarray("NSE_v17",2.,0.,0.0014,rads,-0.8,0.,0.05)
 
-build_OFS_coils_csv("new_NSE_v9",12,0.001,0.0014,0.12,1.4,0.01)
-build_OFS_coilarray("new_NSE_v9",2.5,0.,0.0014,rads,-0.8,-0.65,0.05)
-
-build_OFS_coils_csv("new_NSE_v10",15,0.001,0.0014,0.05,1.4,0.005)
-build_OFS_coilarray("new_NSE_v10",2.,0.,0.0014,rads,-0.8,-0.65,0.05)
-
-build_OFS_coils_csv("new_NSE_v11",10,0.001,0.0014,0.1,1.4,0.01)
-build_OFS_coilarray("new_NSE_v11",2.5,0.,0.0014,rads,-0.8,-0.65,0.05)
-#half the double the dist in NSE_v12, and also 10 cm radius
-build_OFS_coils_csv("new_NSE_v12",10,0.001,0.0014,0.1,1.4,0.005)
-build_OFS_coilarray("new_NSE_v12",2.5,0.,0.0014,rads,-0.8,-0.65,0.05)
+build_OFS_coils_csv("NSE_v18",5,0.001,0.0014,0.05,1.4,0.01)
+build_OFS_coilarray("NSE_v18",2.,0.,0.0014,rads,-0.8,0.,0.05)
 
 
-build_OFS_coils_csv("NSE_v13",20,0.001,0.0014,0.05,1.4,0.00001)
-build_OFS_coilarray("NSE_v13",2.,0.,0.0014,rads,-0.8,0.,0.05)
-
-build_OFS_coils_csv("NSE_v14",10,0.001,0.0014,0.05,1.4,0.00001)
-build_OFS_coilarray("NSE_v14",2.5,0.,0.0014,rads,-0.8,0.,0.05)
-
-
-build_OFS_coils_csv("NSE_v15",10,0.001,0.0014,0.08,1.4,0.01)
-build_OFS_coilarray("NSE_v15",2.,0.,0.0014,rads,-0.8,0.,0.05)
 
 end_time=time.time()
 
-calc_time=(start_time-end_time)/60.
+calc_time=(end_time-start_time)/60.
 calctime=open("calculation_time.txt","w")
-calctime.write(str(calc_time)+"calculation time for setup")
+calctime.write(str(calc_time)+"-------minutes ,calculation time for setup")
