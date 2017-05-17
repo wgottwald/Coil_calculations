@@ -1042,9 +1042,11 @@ rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 #calctime6=open("calculation_time_NSE_v20.txt","w")
 #calctime6.write(str(calc_time1)+"-------minutes ,calculation time")
 
+rad2=[0.0075,0.01,0.0125,0.015,0.0175,0.02]
+
 
 build_OFS_coils_csv("NSE_v21",9,0.001,0.0014,0.07,1.4,0.01)
-build_OFS_coilarray("NSE_v21",2.,0.,0.0014,rads,-0.8,0.,0.05)
+build_OFS_coilarray("NSE_v21",2.,0.,0.0014,rads2,-0.8,0.,0.05)
 
 
 
