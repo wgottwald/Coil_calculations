@@ -1019,14 +1019,31 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
 
 rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 
+# build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist)
 
+build_OFS_coils_csv("NSE_v32",10,0.001,0.001,0.05,1.,0.01)
+build_OFS_coilarray("NSE_v32",2.5,0.,0.0014,rads,-0.6,0.,0.05)
 
-build_OFS_coils_csv("NSE_v29",10,0.001,0.0014,0.05,1.,0.01)
-build_OFS_coilarray("NSE_v29",2.5,0.,0.0014,rads,-0.6,0.,0.05)
+build_OFS_coils_csv("NSE_v33",12,0.001,0.001,0.12,1.,0.01)
+build_OFS_coilarray("NSE_v33",2.5,0.,0.0014,rads,-0.6,0.,0.05)
 
-build_OFS_coils_csv("NSE_v30",12,0.001,0.0014,0.12,1.,0.01)
-build_OFS_coilarray("NSE_v30",2.5,0.,0.0014,rads,-0.6,0.,0.05)
+build_OFS_coils_csv("NSE_v34",10,0.001,0.001,0.1,1.,0.01)
+build_OFS_coilarray("NSE_v34",2.5,0.,0.0014,rads,-0.6,0.,0.05)
 
-build_OFS_coils_csv("NSE_v31",10,0.001,0.0014,0.1,1.,0.01)
-build_OFS_coilarray("NSE_v31",2.5,0.,0.0014,rads,-0.6,0.,0.05)
+build_OFS_coils_csv("NSE_v35",10,0.001,0.0014,0.12,1.4,0.01)
+build_OFS_coilarray("NSE_v35",2.5,0.,0.0014,rads,-0.8,0,0.05)
 
+build_OFS_coils_csv("NSE_v36",15,0.001,0.0014,0.12,1.4,0.01)
+build_OFS_coilarray("NSE_v36",2.5,0.,0.0014,rads,-0.8,0,0.05)	
+
+build_OFS_coils_csv("NSE_v37",13,0.001,0.0014,0.12,1.4,0.01)
+build_OFS_coilarray("NSE_v37",2.5,0.,0.0014,rads,-0.8,0,0.05)
+
+build_OFS_coils_csv("NSE_v38",11,0.001,0.0014,0.12,1.4,0.01)
+build_OFS_coilarray("NSE_v38",2.5,0.,0.0014,rads,-0.8,0,0.05)
+
+build_OFS_coils_csv("NSE_v39",12,0.001,0.0014,0.1,1.4,0.01)
+build_OFS_coilarray("NSE_v39",2.5,0.,0.0014,rads,-0.8,0,0.05)
+
+build_OFS_coils_csv("NSE_v40",12,0.001,0.0014,0.15,1.4,0.01)
+build_OFS_coilarray("NSE_v40",2.5,0.,0.0014,rads,-0.8,0,0.05)
