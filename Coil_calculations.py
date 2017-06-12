@@ -1021,58 +1021,12 @@ rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 
 
 
+build_OFS_coils_csv("NSE_v29",10,0.001,0.0014,0.05,1.,0.01)
+build_OFS_coilarray("NSE_v29",2.5,0.,0.0014,rads,-0.6,0.6,0.05)
 
-#build_OFS_coils_csv("NSE_v16",12,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v16",2.,0.,0.0014,rads_2,-0.8,0.,0.05)
+build_OFS_coils_csv("NSE_v30",12,0.001,0.0014,0.12,1.,0.01)
+build_OFS_coilarray("NSE_v30",2.5,0.,0.0014,rads,-0.6,0.6,0.05)
 
-#build_OFS_coils_csv("NSE_v17",8,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v17",2.,0.,0.0014,rads,-0.8,0.,0.05)
+build_OFS_coils_csv("NSE_v31",10,0.001,0.0014,0.1,1.,0.01)
+build_OFS_coilarray("NSE_v31",2.5,0.,0.0014,rads,-0.6,0.6,0.05)
 
-#build_OFS_coils_csv("NSE_v18",5,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v18",2.,0.,0.0014,rads,-0.8,0.,0.05)
-
-#build_OFS_coils_csv("NSE_v19",14,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v19",2.,0.,0.0014,rads,-0.8,0.,0.05)
-
-#start_time6=time.time()
-#build_OFS_coils_csv("NSE_v20",9,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v20",2.,0.,0.0014,rads,-0.8,0.,0.05)
-#end_time6=time.time()
-#calc_time6=(end_time6-start_time6)/60.
-#calctime6=open("calculation_time_NSE_v20.txt","w")
-#calctime6.write(str(calc_time1)+"-------minutes ,calculation time")
-
-
-
-
-#build_OFS_coils_csv("NSE_v21",9,0.001,0.0014,0.07,1.4,0.01)
-#build_OFS_coilarray("NSE_v21",2.,0.,0.0014,rads2,-0.8,0.,0.05)
-
-
-
-#build_OFS_coils_csv("NSE_v22",13,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v22",2.,0.,0.0014,rads,-0.8,0.,0.05)
-
-
-#build_OFS_coils_csv("NSE_v23",11,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v23",2.,0.,0.0014,rads,-0.8,0.,0.05)
-
-
-
-#build_OFS_coils_csv("NSE_v24",14,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v24",2.,0.,0.0014,rads,-0.8,0.,0.05)
-
-
-
-
-#build_OFS_coils_csv("NSE_v25",17,0.001,0.0014,0.05,1.4,0.01)
-#build_OFS_coilarray("NSE_v25",2.,0.,0.0014,rads,-0.8,0.,0.05)
-
-build_OFS_coils_csv("NSE_v26",10,0.001,0.0014,0.05,1.4,0.1)
-build_OFS_coilarray("NSE_v26",2.,0.,0.0014,rads,-0.8,0.,0.05)
-
-build_OFS_coils_csv("NSE_v27",10,0.001,0.001,0.05,1.,0.01)
-build_OFS_coilarray("NSE_v27",2.,0.,0.0014,rads,-0.6,0.,0.05)
-
-build_OFS_coils_csv("NSE_v28",10,0.001,0.0014,0.07,1.4,0.01)
-build_OFS_coilarray("NSE_v28",2.,0.,0.0014,rads,-0.8,0.,0.05)
