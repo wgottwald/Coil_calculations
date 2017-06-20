@@ -1022,8 +1022,8 @@ rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 # build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist)
 
 
-build_OFS_coils_csv("NSE_v41",7,0.001,0.0014,0.05,1.4,0.01)
-build_OFS_coilarray("NSE_v41",2.5,0.,0.0014,rads,-0.8,0,0.05)
+#build_OFS_coils_csv("NSE_v41",7,0.001,0.0014,0.05,1.4,0.01)
+#build_OFS_coilarray("NSE_v41",2.5,0.,0.0014,rads,-0.8,0,0.05)
 
 
 build_OFS_coils_csv("NSE_v42",7,0.001,0.0014,0.05,1.,0.01)
