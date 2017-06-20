@@ -1058,8 +1058,8 @@ build_OFS_coilarray("NSE_v50",2.5,0.,0.0014,rads,-0.8,0,0.05)
 build_OFS_coils_csv("NSE_v51",4,0.001,0.0014,0.05,1.4,0.01)
 build_OFS_coilarray("NSE_v51",2.5,0.,0.0014,rads,-0.8,0,0.05)
 
-build_OFS_coils_csv("NSE_v51",6,0.001,0.0014,0.05,1.4,0.01)
-build_OFS_coilarray("NSE_v51",2.5,0.,0.0014,rads,-0.8,0,0.05)
+build_OFS_coils_csv("NSE_v52",6,0.001,0.0014,0.05,1.4,0.01)
+build_OFS_coilarray("NSE_v52",2.5,0.,0.0014,rads,-0.8,0,0.05)
 
-build_OFS_coils_csv("NSE_v51",6,0.001,0.0014,0.1,1.4,0.01)
-build_OFS_coilarray("NSE_v51",2.5,0.,0.0014,rads,-0.8,0,0.05)
+build_OFS_coils_csv("NSE_v53",6,0.001,0.0014,0.1,1.4,0.01)
+build_OFS_coilarray("NSE_v53",2.5,0.,0.0014,rads,-0.8,0,0.05)
