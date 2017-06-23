@@ -1021,17 +1021,17 @@ rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 
 # build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist)
 
-build_OFS_coils_csv("NSE_v54",5,0.001,0.0014,0.05,1.,0.001)
-build_OFS_coilarray("NSE_v54",2.5,0.,0.0014,rads,-0.8,0,0.05)
 
-build_OFS_coils_csv("NSE_v55",6,0.001,0.0014,0.05,1.,0.001)
-build_OFS_coilarray("NSE_v55",2.5,0.,0.0014,rads,-0.8,0,0.05)
 
-build_OFS_coils_csv("NSE_v56",4,0.001,0.0014,0.05,1.,0.001)
-build_OFS_coilarray("NSE_v56",2.5,0.,0.0014,rads,-0.8,0,0.05)
+build_OFS_coils_csv("NSE_v58",5,0.001,0.0014,0.1,1.,0.001)
+build_OFS_coilarray("NSE_v58",2.5,0.,0.0014,rads,-0.8,0,0.05)
 
-build_OFS_coils_csv("NSE_v57",5,0.001,0.0014,0.05,1.4,0.001)
-build_OFS_coilarray("NSE_v57",2.5,0.,0.0014,rads,-0.8,0,0.05)
+build_OFS_coils_csv("NSE_v59",7,0.001,0.0014,0.1,1.,0.001)
+build_OFS_coilarray("NSE_v59",2.5,0.,0.0014,rads,-0.8,0,0.05)
+
+build_OFS_coils_csv("NSE_v60",6,0.001,0.0014,0.1,1.,0.001)
+build_OFS_coilarray("NSE_v60",2.5,0.,0.0014,rads,-0.8,0,0.05)
+
 
 
 
