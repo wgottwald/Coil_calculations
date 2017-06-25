@@ -1051,9 +1051,8 @@ build_OFS_coils_csv("NSE_v65",9,0.001,0.001,0.05,1.,0.01)
 build_OFS_coilarray("NSE_v65",2.5,0.,0.0014,rads,-0.6,0.6,0.05)
 
 for i in np.arange(0.001,0.05+0.098,0.098):
-for a in range(0,6,1):
-	build_OFS_coils_csv("NSE_v"+str(a),10,0.001,0.001,0.05,1.,i)
-	build_OFS_coilarray("NSE_v"+str(a),2.5,0.,0.0014,rads,-0.6,0.6,0.05)
+	build_OFS_coils_csv("NSE_v32_dist="+str(i),10,0.001,0.001,0.05,1.,i)
+	build_OFS_coilarray("NSE_v32_dist="+str(i),2.5,0.,0.0014,rads,-0.6,0.6,0.05)
 
 
 
