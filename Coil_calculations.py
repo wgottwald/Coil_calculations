@@ -1023,14 +1023,11 @@ rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 
 
 
-build_OFS_coils_csv("NSE_v58",5,0.001,0.0014,0.1,1.,0.001)
-build_OFS_coilarray("NSE_v58",2.5,0.,0.0014,rads,-0.8,0,0.05)
+build_OFS_coils_csv("NSE_v61",10,0.001,0.001,0.05,1.,0.01)
+build_OFS_coilarray("NSE_v61",0.32,0.,0.0014,rads,-0.05,0.05,0.05)
 
-build_OFS_coils_csv("NSE_v59",7,0.001,0.0014,0.1,1.,0.001)
-build_OFS_coilarray("NSE_v59",2.5,0.,0.0014,rads,-0.8,0,0.05)
-
-build_OFS_coils_csv("NSE_v60",6,0.001,0.0014,0.1,1.,0.001)
-build_OFS_coilarray("NSE_v60",2.5,0.,0.0014,rads,-0.8,0,0.05)
+build_OFS_coils_csv("NSE_v62",5,0.001,0.0014,0.1,1.,0.001)
+build_OFS_coilarray("NSE_v63",0.68,0.,0.0014,rads,-0.05,0.05,0.05)
 
 
 
