@@ -1020,12 +1020,20 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
 rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 
 # build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist)
+curr_NSE_0=1.56
+NSE_0_0=coil(0.1/2.,1./724.,724,1,curr_NSE_0,0.)
+NSE_0_1=coil(0.11/2.,0.82/594.,594,1,curr_NSE_0,0.)
+NSE_0_2=coil(0.12/2.,0.67/485.,485,1,curr_NSE_0,0.)
+NSE_0_3=coil(0.13/2.,0.54/391.,391,1,curr_NSE_0,0.)
+NSE_0_4=coil(0.14/2.,0.4/290.,290,1,curr_NSE_0,0.)
+
+#constructing the whole NSE coil
+NSE_old=coilarray([NSE_0_0,NSE_0_1,NSE_0_2,NSE_0_3,NSE_0_4])
+
+#def B_fixed_r_to_csv(self,r,zstart,zlimit,zstep,coilname):
+NSE_old.B_fixed_r_to_csv(0.,0.,0.05,0.05,"NSE_old")
 
 
-
-
-build_OFS_coils_csv("NSE_v62",5,0.001,0.0014,0.1,1.,0.001)
-build_OFS_coilarray("NSE_v62",0.68,0.,0.0014,[0.],-0.05,0.05,0.05)
 
 
 
