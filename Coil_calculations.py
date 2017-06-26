@@ -1034,25 +1034,10 @@ rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
 #NSE_old.B_fixed_r_to_csv(0.,0.,0.05,0.05,"NSE_old")
 
 
-build_OFS_coils_csv("NSE_v61",4,0.001,0.0014,0.1,1.,0.01)
-build_OFS_coilarray("NSE_v61",1.4,0.,0.0014,rads,-0.6,0.6,0.05)
-
-build_OFS_coils_csv("NSE_v62",4,0.001,0.0014,0.1,1.,0.001)
-build_OFS_coilarray("NSE_v62",1.8,0.,0.0014,rads,-0.6,0.6,0.05)
-
-build_OFS_coils_csv("NSE_v63",3,0.001,0.0014,0.1,1.,0.001)
-build_OFS_coilarray("NSE_v63",2.3,0.,0.0014,rads,-0.6,0.6,0.05)
-
-
-build_OFS_coils_csv("NSE_v64",3,0.001,0.0014,0.1,1.,0.01)
-build_OFS_coilarray("NSE_v64",2.3,0.,0.0014,rads,-0.6,0.6,0.05)
-
-build_OFS_coils_csv("NSE_v65",9,0.001,0.001,0.05,1.,0.01)
-build_OFS_coilarray("NSE_v65",2.5,0.,0.0014,rads,-0.6,0.6,0.05)
 
 for i in np.arange(0.001,0.05+0.098,0.098):
 	build_OFS_coils_csv("NSE_v32_dist="+str(i),10,0.001,0.001,0.05,1.,i)
-	build_OFS_coilarray("NSE_v32_dist="+str(i),2.5,0.,0.0014,rads,-0.6,0.6,0.05)
+	build_OFS_coilarray("NSE_v32_dist="+str(i),2.5,0.,0.0014,rads,-0.6,0.0,0.05)
 
 
 
