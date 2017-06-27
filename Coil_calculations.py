@@ -927,32 +927,34 @@ def Br_fixed_z_read_plot(coilname,zvalues):
     
     #now for building OFS coils
 
-def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist):
+
+def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist,voltage):
     """constructs a coilsetup, whose geometric form ist like the OFS, with an arbitrary amplitude A, which 
     corrresponds to how high the setup should be biult, when constructed
     N_coils is the number of coils 
     d_insulator could be everything between 0.001[m] and 0.02[m]
     d_wire is usually 0.0014 [m]
-    R_innercoil is usually 0.05 [m], cause the neutron beam is 4 cm in diameter
-    L_inner_coil can be everything between 1m and 1,4 m which is ideal if, 1,4 mm cable is used, cause then 
-    we have exactly 1000 windings in the innermost coil
+    R_innercoil is usually 0.05 [m], cause the neutron beam is 4 cm in diameter but can be as large as 15 cm
+    L_inner_coil can only be 1 meter, cause everything else does not fit
     dist corresponds to how much difference there should be between the hypothetical maximum of the
     cos^2 shape of the coilarray and the last coil constructed (usually some centimeters)
     we don't want the coils to be too short, because then the radial field gets more inhomogenuos
     function returns dwire
-    saves the input as a txt file
+    saves the input as a csv file
     """
     radius=lambda n: R_inner_coil+n*(d_wire+d_insulator)
     #the nth coil gets radius(n) as its radius
     A=radius(N_coils)+dist-R_inner_coil
-    #A is the maximum of the
+    #A is the maximum of the OFS shape
     OFS=lambda x: A*(np.cos(np.pi*x/L_inner_coil)**2)+R_inner_coil
+    #need x_coordinate to get the lenth of the coils in respect to the OFS
     x_coordinate=lambda x: np.arccos(np.sqrt((radius(x)-R_inner_coil)/A))*L_inner_coil/np.pi
     l=[]
     r=[]
     t=[]
+    curr=[]
     cl=[]
-    
+    res=[]
     for n in np.arange(0,N_coils+1,1):
         l.append(round(x_coordinate(n),4))
         r.append(radius(n))
@@ -961,33 +963,64 @@ def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner
         
     for n in np.arange(0,N_coils+1,1):
         t.append(int(round(cl[n]/d_wire,0)))
-
-                 
+        
+    #resistance of copper cable in Ohm [mm^2]/m
+    copper_res=0.0171
+    #calc resistance of individual coils
+    length_cable=[]
+    for i in np.arange(0,len(r)):
+        length_cable.append(t[i]*2*np.pi*r[i])
+               
+        res.append(copper_res*(t[i]*2*np.pi*r[i])/(1000000*math.pi*((d_wire/2)**2)))
+    
+    #maximal voltage is 32, but we take 30, to have some leeway
+    for i in range(0,len(r)):
+        curr.append(voltage/res[i])
     #take into account here, that we round the number of turns to the next float with .0, the conversion to integers happens, when
     #you call build_OFS_coilarray!!
     #had some problems with computing this...
-    table={'radius':r,'turns':t,"coillength":cl}
-    data=pd.DataFrame(table,columns=['radius','turns','coillength'],dtype=float)
+    table={'radius':r,'turns':t,"coillength":cl,"current":curr,"resistance":res}
+    data=pd.DataFrame(table,columns=['radius','turns','coillength','current',"resistance"],dtype=float)
 
     data.to_csv("coilparameters_for_"+str(coilname)+".csv")
     #now plot the result
-    #ax=np.arange(-L_inner_coil/2,L_inner_coil/2,0.001)
+    #plt.clf()
+   # ax=np.arange(-L_inner_coil/2,L_inner_coil/2,0.001)
     #plt.xlabel("z coordinate alongside coil [m]")
-    #plt.ylabel("OFS field shape,with coils as hlines")
+    #plt.ylabel("OFS field shape,with coils as hlines [m]")
     #plt.plot(ax,OFS(ax))
     #plt.scatter(l,r)
     #for i in np.arange(0,N_coils+1,1):
-    #    plt.hlines(OFS(l[i]),-l[i],l[i])
+    #    plt.hlines(OFS(l[i]),-l[i],l[i],label=str(data['turns'][i]))
+    #    plt.legend()
+    
         
-    #plt.savefig(str(coilname)+"_coil_distribution.eps")
+    #plt.savefig("/Users/wolfganggottwald/Documents/Studium/Bachelorarbeit/Calculations/COILDATA/"+str(coilname)+"/"+str(coilname)+"_coil_distribution.eps")
     #print data
-    #want to save the starting parameters as a txt file, so that this info doesnt get lost in the process
-    #starting_parameters=open("starting_parameters_for_"+str(coilname)+".txt","w")
-    #starting_parameters.write("coilname="+str(coilname)+" ------ Number of coils="+str(N_coils)+" ------ Thickness of insulator[m]="+str(d_insulator)
-                             #+" ------ diameter of wire[m]="+str(d_wire)+" ------ radius inner coil[m]= "+str(R_inner_coil)+" ------ length inner coil[m]="
-                             #+str(L_inner_coil)+" ------ distance between top winding of Nth coil and max of hypothetical cos^2 shape[m]="+str(dist))
+    #want to save the starting parameters as a csv file, so that this info doesnt get lost in the process
+    r_0=R_inner_coil
+    L_0=L_inner_coil
+    
+    coilname=[str(coilname)]
+    N_coils=[N_coils+1]
+    d_insulator=[d_insulator]
+    d_wire=[d_wire]
+    r_0=[r_0]
+    L_0=[L_0]
+    dist=[dist]
+    table={"coilname":coilname,"N_coils":N_coils,"d_insulator":d_insulator,"d_wire":d_wire,"r_0":r_0,"L_0":L_0,"dist":dist}
+    
+    starting_parameters=pd.DataFrame(table,columns=["coilname","N_coils","d_insulator","d_wire","r_0","L_0","dist"],dtype=float)
+    coilname=coilname[0]
+    starting_parameters.to_csv("starting_parameters_for_"+str(coilname)+".csv")
+    #distance between top winding of Nth coil and max of hypothetical cos^2 shape = dist
+    #Number of coils =N_coils
+    #Thickness of insulator = d_insulator
+    #D_wire = diameter of wire
+    #radius inner coil = r_0
+    #length inner coil= L_0
 
-def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
+def build_OFS_coilarray(coilname,z0,D_wire,rads,zstart,zlimit,zsteps):
     """
     enter coilname as str
     reads csv file from build_OFS_coils_csv
@@ -996,49 +1029,34 @@ def build_OFS_coilarray(coilname,current,z0,D_wire,rads,zstart,zlimit,zsteps):
     saves the input as a txt file
     """
     N_layers=1
-    csvname="coilparameters_for_"+coilname+".csv"
+    csvname="coilparameters_for_"+str(coilname)+".csv"
     #saving the field_calc_parameters as a textfile, so that the info is not lost
-    #field_params=open("field_calc_parameters_for_"+str(coilname)+".txt","w")
+    #field_params=open("/Users/wolfganggottwald/Documents/Studium/Bachelorarbeit/Calculations/COILDATA/"+str(coilname)+"/"+"field_calc_parameters_for_"+str(coilname)+".txt","w")
     #field_params.write("current[A]="+str(current)+" ------ z0 [m]="+str(z0)+" ------ radia where calculated [m]="+
-                         #str(rads)+" ------ z boundaries where field is calculated [m]="+str(zstart)+","+str(zlimit)+" ------ z stepping range[m]="+str(zsteps))
+                        # str(rads)+" ------ z boundaries where field is calculated [m]="+str(zstart)+","+str(zlimit)+" ------ z stepping range[m]="+str(zsteps))
 
     
     data=pd.read_csv(csvname)
     built_coilarray=[]
-    
+
     for i in np.arange(len(data['radius'])):
-        built_coilarray.append(coil(data['radius'][i],D_wire,int(data['turns'][i]),N_layers,current,z0))
+        built_coilarray.append(coil(data['radius'][i],D_wire,int(data['turns'][i]),N_layers,data['current'][i],z0))
     for rad in rads:
         coilarray(built_coilarray).B_fixed_r_to_csv(rad,zstart,zlimit,zsteps,coilname)
-        
-
-
-
-    
-
-
+            
+            
 rads=[0.0,0.0025,0.005,0.0075,0.01,0.0125,0.015,0.0175,0.02]
+#def build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist,voltage):
+#def build_OFS_coilarray(coilname,z0,D_wire,rads,zstart,zlimit,zsteps):
 
-# build_OFS_coils_csv(coilname,N_coils,d_insulator,d_wire,R_inner_coil,L_inner_coil,dist)
-#curr_NSE_0=5
-#NSE_0_0=coil(0.1/2.,1./724.,724,1,curr_NSE_0,0.)
-#NSE_0_1=coil(0.11/2.,0.82/594.,594,1,curr_NSE_0,0.)
-#NSE_0_2=coil(0.12/2.,0.67/485.,485,1,curr_NSE_0,0.)
-#NSE_0_3=coil(0.13/2.,0.54/391.,391,1,curr_NSE_0,0.)
-#NSE_0_4=coil(0.14/2.,0.4/290.,290,1,curr_NSE_0,0.)
+build_OFS_coils_csv("NSE_para_01",5,0.001,0.0014,0.1,1.,0.05,8)
+build_OFS_coilarray("NSE_para_01",0.,0.0014,rads,-0.6,0.,0.05)
 
-#constructing the whole NSE coil
-#NSE_old=coilarray([NSE_0_0,NSE_0_1,NSE_0_2,NSE_0_3,NSE_0_4])
+build_OFS_coils_csv("NSE_para_02",6,0.001,0.0014,0.1,1.,0.01,8)
+build_OFS_coilarray("NSE_para_02",0.,0.0014,rads,-0.6,0.,0.05)
 
-#def B_fixed_r_to_csv(self,r,zstart,zlimit,zstep,coilname):
-#NSE_old.B_fixed_r_to_csv(0.,0.,0.05,0.05,"NSE_old")
-
-
-
-for i in np.arange(0.0108,0.05+0.0098*2,0.0098):
-	build_OFS_coils_csv("NSE_v32_dist="+str(i),10,0.001,0.001,0.05,1.,i)
-	build_OFS_coilarray("NSE_v32_dist="+str(i),2.5,0.,0.0014,rads,-0.6,0.0,0.05)
-
+build_OFS_coils_csv("NSE_para_03",4,0.001,0.0014,0.1,1.,0.01,8)
+build_OFS_coilarray("NSE_para_03",0.,0.0014,rads,-0.6,0.,0.05)
 
 
 
