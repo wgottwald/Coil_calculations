@@ -1,3 +1,5 @@
-Code used to calculate the magnetic field of concentrical solenoids with differing length.
+### Overview
+This code calculates the magnetic field of concentrical solenoids with differing length.
+## Original purpose
 Originally developed for field subtraction coils at a neutron resonance spin echo spectrometer during my BSc. thesis.
-This code has not been maintained or updated.
+
